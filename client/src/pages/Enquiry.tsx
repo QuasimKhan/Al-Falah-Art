@@ -38,6 +38,46 @@ interface PricingSnapshot {
     advanceRequired: number;
 }
 
+interface EnquiryFormValues {
+    // Step 1: Product & Pricing
+    type: string;
+    productId: string;
+    designId?: string;
+    quantity: number;
+    deliveryMode: string;
+    offerCode?: string;
+
+    // Wedding card options
+    printBrideName: string;
+
+    // Groom details
+    groomName?: string;
+    groomFather?: string;
+    groomAddress?: string;
+
+    // Bride details
+    brideName?: string;
+    brideFather?: string;
+    brideAddress?: string;
+
+    // Event details
+    eventDate?: string;
+    venue?: string;
+    additionalContent?: string;
+
+    // Poster / General printing
+    mainHeading?: string;
+    textContent?: string;
+
+    // Customer details
+    customerName: string;
+    phone: string;
+    email?: string;
+
+    // File uploads
+    attachments?: FileList;
+}
+
 export const Enquiry = () => {
     const [step, setStep] = useState<1 | 2 | 3>(1);
     const [isCalculating, setIsCalculating] = useState(false);
@@ -48,12 +88,35 @@ export const Enquiry = () => {
     const [priceError, setPriceError] = useState<string | null>(null);
 
     const { register, handleSubmit, control, setValue, getValues, reset } =
-        useForm({
+        useForm<EnquiryFormValues>({
             defaultValues: {
                 type: "Wedding Card",
+                productId: "",
+                quantity: 100,
                 deliveryMode: "Pickup",
                 printBrideName: "no",
-                quantity: 100,
+
+                designId: "",
+                offerCode: "",
+
+                groomName: "",
+                groomFather: "",
+                groomAddress: "",
+
+                brideName: "",
+                brideFather: "",
+                brideAddress: "",
+
+                eventDate: "",
+                venue: "",
+                additionalContent: "",
+
+                mainHeading: "",
+                textContent: "",
+
+                customerName: "",
+                phone: "",
+                email: "",
             },
         });
 
@@ -224,9 +287,11 @@ export const Enquiry = () => {
                             <div className="space-y-2">
                                 <Label>Requirement Type</Label>
                                 <Select
-                                    onValueChange={(val) =>
-                                        setValue("type", val)
-                                    }
+                                    onValueChange={(val) => {
+                                        if (val) {
+                                            setValue("type", val);
+                                        }
+                                    }}
                                     defaultValue={selectedType}
                                 >
                                     <SelectTrigger>
@@ -249,9 +314,11 @@ export const Enquiry = () => {
                             <div className="space-y-2">
                                 <Label>Select Product *</Label>
                                 <Select
-                                    onValueChange={(val) =>
-                                        setValue("productId", val)
-                                    }
+                                    onValueChange={(val) => {
+                                        if (typeof val === "string") {
+                                            setValue("productId", val);
+                                        }
+                                    }}
                                     disabled={isLoadingProducts}
                                 >
                                     <SelectTrigger>
@@ -281,16 +348,20 @@ export const Enquiry = () => {
                                 <Input
                                     type="number"
                                     min="1"
-                                    {...register("quantity")}
+                                    {...register("quantity", {
+                                        valueAsNumber: true,
+                                    })}
                                 />
                             </div>
 
                             <div className="space-y-2">
                                 <Label>Delivery Mode *</Label>
                                 <Select
-                                    onValueChange={(val) =>
-                                        setValue("deliveryMode", val)
-                                    }
+                                    onValueChange={(val) => {
+                                        if (val) {
+                                            setValue("deliveryMode", val);
+                                        }
+                                    }}
                                     defaultValue={deliveryMode}
                                 >
                                     <SelectTrigger>
@@ -496,9 +567,14 @@ export const Enquiry = () => {
                                             Print Bride's Name on Card? *
                                         </Label>
                                         <Select
-                                            onValueChange={(val) =>
-                                                setValue("printBrideName", val)
-                                            }
+                                            onValueChange={(val) => {
+                                                if (val) {
+                                                    setValue(
+                                                        "printBrideName",
+                                                        val,
+                                                    );
+                                                }
+                                            }}
                                             defaultValue={printBrideName}
                                         >
                                             <SelectTrigger>

@@ -61,7 +61,7 @@ export const TrackOrder = () => {
                 name: "Al Falah Art",
                 description: `Advance Payment for Order`,
                 order_id: orderId,
-                handler: function (response: any) {
+                handler: function () {
                     // On success, Razorpay hits our backend webhook.
                     // We refetch the UI to show the updated "Payment Confirmed" status.
                     setTimeout(() => {
@@ -81,7 +81,7 @@ export const TrackOrder = () => {
 
             // 3. Open Checkout
             const rzp = new (window as any).Razorpay(options);
-            rzp.on("payment.failed", function (response: any) {
+            rzp.on("payment.failed", function () {
                 alert("Payment failed. Please try again.");
             });
             rzp.open();

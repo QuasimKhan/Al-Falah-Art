@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "../lib/axios";
 import {
     Card,
-    CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
