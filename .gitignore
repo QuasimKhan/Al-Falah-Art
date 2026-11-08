@@ -1,0 +1,73 @@
+# ==========================================
+# Dependencies
+# ==========================================
+# Targets node_modules at root, inside server/, and inside client/
+node_modules/
+.pnpm-store/
+jspm_packages/
+web_modules/
+
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+# Prevents sensitive API keys, database URLs, and tokens from leaki
+.env
+.env.local
+.env.*.local
+*.env
+*.secret
+
+# ==========================================
+# Build and Output Folders
+# ==========================================
+# Node / Express backend build output
+dist/
+build/
+out/
+
+# Vite frontend production builds
+client/dist/
+client/dist-ssr/
+server/dist/
+
+# ==========================================
+# Logs and Runtime Files
+# ==========================================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# Testing & Tools Coverage
+# ==========================================
+coverage/
+.nyc_output/
+.eslintcache
+.stylelintcache
+.prettiercache
+.tsbuildinfo
+
+# ==========================================
+# Frameworks & Editors
+# ==========================================
+# IDEs and Editors
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
